@@ -28,7 +28,7 @@ public class LocalProcessor {
         this.processorVersion = processorVersion;
         this.valueOfCheap = valueOfCheap;
         this.informationScanner = informationScanner;
-        LocalProcessor.stringArrayList = stringArrayList;
+        LocalProcessor.stringArrayList = new LinkedList<>(stringArrayList);
     }
 
     public LocalProcessor() {
@@ -38,14 +38,16 @@ public class LocalProcessor {
     public void listIterator(LinkedList<String> stringList) {
         LocalProcessor.stringArrayList = new LinkedList<>(stringList);
         for (int i = 0; i < period; i++) {
-            System.out.println(LocalProcessor.stringArrayList.get(i).hashCode());
+            if (i < LocalProcessor.stringArrayList.size()) {
+                System.out.println(LocalProcessor.stringArrayList.get(i).hashCode());
+            }
         }
     }
 
     @FullNameProcessorGeneratorAnnotation
     public String fullNameProcessorGenerator(LinkedList<String> stringList) {
-        for (int i = 0; i < stringArrayList.size(); i++) {
-            processorName += stringList.get(i) + ' ';
+        for (String string : stringList) {
+            processorName += string + ' ';
         }
         return processorName;
     }
